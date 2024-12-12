@@ -9,10 +9,11 @@ map_file_manager::map_file_manager(std::string filename)
 // Function that take every line from a .txt file to the vector of vector<char> which represent 2D GRID (map)
 // Every char in the txt file is a single cell in our 2D GRID (map)
 std::vector<std::vector<char>> map_file_manager::loadFromFile() {
-    std::ifstream file("../../maps/" + filename_);
+    std::ifstream file("../maps/" + filename_);
 
     if(!file.is_open()){
-        throw std::runtime_error("Couldn't open the map file");
+
+        throw std::runtime_error("Couldn't open the map file: ../maps/" + filename_);
     }
 
     std::string line;

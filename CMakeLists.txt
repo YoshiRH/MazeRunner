@@ -11,4 +11,8 @@ add_executable(Rogue_like_project app/main.cpp
         src/map/map.cpp
         src/map_file_manager/map_file_manager.h
         src/map_file_manager/map_file_manager.cpp
+        src/player/player.h
+        src/player/player.cpp
+        src/game/game.h
+        src/game/game.cpp
 )

@@ -8,7 +8,7 @@ map::map(int width, int height)
 }
 
 void map::setCell(int x, int y, char value) {
-    if(x > 0 && x <layout_[0].size() && y > 0 && y < layout_.size()){ // Check if x,y is in the grid
+    if(x >= 0 && x <layout_[0].size() && y >= 0 && y < layout_.size()){ // Check if x,y is in the grid
         layout_[y][x] = value;
     }
     else
@@ -16,7 +16,7 @@ void map::setCell(int x, int y, char value) {
 }
 
 char map::getCell(int x, int y) const {
-    if(x > 0 && x <layout_[0].size() && y > 0 && y < layout_.size()){ // Check if x,y is in the grid
+    if(x >= 0 && x <layout_[0].size() && y >= 0 && y < layout_.size()){ // Check if x,y is in the grid
         return layout_[y][x];
     }
     else

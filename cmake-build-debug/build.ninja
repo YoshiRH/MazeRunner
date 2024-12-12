@@ -73,6 +73,18 @@ build CMakeFiles/Rogue_like_project.dir/src/map_file_manager/map_file_manager.cp
   OBJECT_DIR = CMakeFiles\Rogue_like_project.dir
   OBJECT_FILE_DIR = CMakeFiles\Rogue_like_project.dir\src\map_file_manager
 
+build CMakeFiles/Rogue_like_project.dir/src/player/player.cpp.obj: CXX_COMPILER__Rogue_like_project_unscanned_Debug D$:/Kodowanie/Rogue_like_project/src/player/player.cpp || cmake_object_order_depends_target_Rogue_like_project
+  DEP_FILE = CMakeFiles\Rogue_like_project.dir\src\player\player.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Rogue_like_project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Rogue_like_project.dir\src\player
+
+build CMakeFiles/Rogue_like_project.dir/src/game/game.cpp.obj: CXX_COMPILER__Rogue_like_project_unscanned_Debug D$:/Kodowanie/Rogue_like_project/src/game/game.cpp || cmake_object_order_depends_target_Rogue_like_project
+  DEP_FILE = CMakeFiles\Rogue_like_project.dir\src\game\game.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Rogue_like_project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Rogue_like_project.dir\src\game
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Rogue_like_project
@@ -81,7 +93,7 @@ build CMakeFiles/Rogue_like_project.dir/src/map_file_manager/map_file_manager.cp
 #############################################
 # Link the executable Rogue_like_project.exe
 
-build Rogue_like_project.exe: CXX_EXECUTABLE_LINKER__Rogue_like_project_Debug CMakeFiles/Rogue_like_project.dir/app/main.cpp.obj CMakeFiles/Rogue_like_project.dir/src/grid/grid.cpp.obj CMakeFiles/Rogue_like_project.dir/src/map/map.cpp.obj CMakeFiles/Rogue_like_project.dir/src/map_file_manager/map_file_manager.cpp.obj
+build Rogue_like_project.exe: CXX_EXECUTABLE_LINKER__Rogue_like_project_Debug CMakeFiles/Rogue_like_project.dir/app/main.cpp.obj CMakeFiles/Rogue_like_project.dir/src/grid/grid.cpp.obj CMakeFiles/Rogue_like_project.dir/src/map/map.cpp.obj CMakeFiles/Rogue_like_project.dir/src/map_file_manager/map_file_manager.cpp.obj CMakeFiles/Rogue_like_project.dir/src/player/player.cpp.obj CMakeFiles/Rogue_like_project.dir/src/game/game.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Rogue_like_project.dir
