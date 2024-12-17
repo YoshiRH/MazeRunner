@@ -5,7 +5,7 @@
 
 
 player::player(int x, int y)
-: pos_x{x}, pos_y{y}{
+        : pos_x{x}, pos_y{y} {
 
 }
 
@@ -21,16 +21,16 @@ int player::getY() const { // Getter
 void player::move(DIRECTIONS dir) {
     switch (dir) {
         case 1:
-                pos_y--;
+            pos_y--;
             break;
         case 2:
-                pos_y++;
+            pos_y++;
             break;
         case 3:
-                pos_x--;
+            pos_x--;
             break;
         case 4:
-                pos_x++;
+            pos_x++;
             break;
         default:
             std::cerr << "Invalid direction\n";
