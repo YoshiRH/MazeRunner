@@ -14,26 +14,28 @@
 
 class game {
 private:
-    std::unique_ptr<grid> grid_;
+    std::unique_ptr<grid> grid_; // Actual grid
 
-    std::vector<std::string> maps_;
-    std::shared_ptr<map> current_map_;
+    std::vector<std::string> maps_; // Vector of all maps in game
+    std::shared_ptr<map> current_map_; // Map obiect of current map
     int current_map_index_;
 
-    player player_;
+    player player_; // player object
 
-    bool running_;
+    bool running_; // Check if game is running
 
 public:
     explicit game(const std::vector<std::string>& map_files);
 
-    void loadFile(int index);
-    int getInput();
+    void loadFile(int index); // Load specific map by index
+    int getInput(); // Get input from user
 
-    void runGame();
-    void nextLevel();
-    void showPauseMenu();
-    void showMainMenu();
+    void runGame(); // Loop function that is running whole game
+    void nextLevel(); // Funtion to load next level
 
-    void movePlayer(DIRECTIONS dir);
+    void showPauseMenu(); // Pause menu
+    void showMainMenu(); // Main menu
+    void showGameOverMenu(); // Game over menu
+
+    void movePlayer(DIRECTIONS dir); // Function to move player in specific direction
 };

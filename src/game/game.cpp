@@ -43,6 +43,7 @@ int game::getInput() {
 void game::runGame() {
     while (running_) {
         grid_->displayMap(player_.getX(), player_.getY());
+        player_.displayStats();
         int input = getInput();
 
         if (input == 5) {
@@ -52,6 +53,11 @@ void game::runGame() {
 
         grid_->clearCell(player_.getX(), player_.getY());
         movePlayer(static_cast<DIRECTIONS>(input));
+
+        if(player_.isDead()) {
+            showGameOverMenu();
+            continue;
+        }
 
         if (grid_->getCell(player_.getX(), player_.getY()) == NEXT_LEVEL_CELL) {
             nextLevel();
@@ -135,6 +141,33 @@ void game::showMainMenu() {
     }
 }
 
+void game::showGameOverMenu() {
+    while(true) {
+        std::cout.flush();
+        system("cls");
+        std::cout << "=== GAME OVER, YOU DIED ===\n";
+        std::cout << "1. New game\n";
+        std::cout << "2. Exit game\n";
+        std::cout << "Chose option: ";
+
+        int choice;
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                current_map_index_ = 0;
+                loadFile(current_map_index_);
+                player_ = player(0, 0);
+                grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
+                return;
+            case 2:
+                exit(0);
+            default:
+                std::cout << "Incorrect input, try again\n";
+        }
+    }
+}
+
 void game::movePlayer(DIRECTIONS dir) {
     switch (dir) {
         case 1:
@@ -157,5 +190,7 @@ void game::movePlayer(DIRECTIONS dir) {
             std::cerr << "Invalid direction\n";
     }
 }
+
+
 
 

@@ -3,6 +3,7 @@
 
 #include "../src/game/game.h"
 
+
 int main()
 {
     try{
@@ -14,6 +15,5 @@ int main()
     catch (const std::exception& e){
         std::cerr << "Error while running the game: " << e.what() << '\n';
     }
-
     return 0;
 }

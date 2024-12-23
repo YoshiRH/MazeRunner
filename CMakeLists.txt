@@ -15,4 +15,6 @@ add_executable(Rogue_like_project app/main.cpp
         src/player/player.cpp
         src/game/game.h
         src/game/game.cpp
+        src/statistic/statistic.h
+        src/statistic/statistic.cpp
 )

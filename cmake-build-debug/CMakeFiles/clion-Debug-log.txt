@@ -1,4 +1,4 @@
 "D:\Programy\CLion 2023.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/Programy/CLion 2023.3/bin/ninja/win/x64/ninja.exe" -DCMAKE_CXX_COMPILER=C:/mingw64/bin/g++.exe -G Ninja -S D:\Kodowanie\Rogue_like_project -B D:\Kodowanie\Rogue_like_project\cmake-build-debug
--- Configuring done (5.1s)
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: D:/Kodowanie/Rogue_like_project/cmake-build-debug
