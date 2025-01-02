@@ -15,5 +15,6 @@ enum DIRECTIONS {
     UP = 1,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    START_POSITION
 };

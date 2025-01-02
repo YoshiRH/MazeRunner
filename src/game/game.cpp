@@ -78,7 +78,8 @@ void game::nextLevel() {
 
     loadFile(current_map_index_);
 
-    player_ = player();
+    //player_ = player();
+    player_.move(START_POSITION);
     grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
 }
 

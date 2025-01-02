@@ -42,6 +42,10 @@ void player::move(DIRECTIONS dir) {
             pos_x++;
             hasMoved();
             break;
+        case 5:
+            pos_x = 0;
+            pos_y = 0;
+            break;
         default:
             std::cerr << "Invalid direction\n";
     }
