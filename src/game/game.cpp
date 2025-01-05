@@ -16,7 +16,7 @@ void game::loadFile(int index) {
     grid_ = std::make_unique<grid>(current_map_);
 }
 
-int game::getInput() {
+GET_FROM_INPUT game::getInput() {
     int key = _getch();
 
     if (key == 224) {
@@ -24,35 +24,35 @@ int game::getInput() {
 
         switch (key) {
             case 72:
-                return 1;
+                return GET_FROM_INPUT::UP;
             case 80:
-                return 2;
+                return GET_FROM_INPUT::DOWN;
             case 75:
-                return 3;
+                return GET_FROM_INPUT::LEFT;
             case 77:
-                return 4;
+                return GET_FROM_INPUT::RIGHT;
             default:
                 break;
         }
     } else if (key == 'x' || key == 'X')
-        return 5;
+        return GET_FROM_INPUT::PAUSE_MENU;
 
-    return 0;
+    return GET_FROM_INPUT::WRONG_INPUT;
 }
 
 void game::runGame() {
     while (running_) {
         grid_->displayMap(player_.getX(), player_.getY());
         player_.displayStats();
-        int input = getInput();
+        auto input = getInput();
 
-        if (input == 5) {
+        if (input == GET_FROM_INPUT::PAUSE_MENU) {
             showPauseMenu();
             continue;
         }
 
         grid_->clearCell(player_.getX(), player_.getY());
-        movePlayer(static_cast<DIRECTIONS>(input));
+        movePlayer(input);
 
         if(player_.isDead()) {
             showGameOverMenu();
@@ -79,7 +79,7 @@ void game::nextLevel() {
     loadFile(current_map_index_);
 
     //player_ = player();
-    player_.move(START_POSITION);
+    player_.move(GET_FROM_INPUT::START_POSITION);
     grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
 }
 
@@ -169,21 +169,21 @@ void game::showGameOverMenu() {
     }
 }
 
-void game::movePlayer(DIRECTIONS dir) {
+void game::movePlayer(GET_FROM_INPUT dir) {
     switch (dir) {
-        case 1:
+        case GET_FROM_INPUT::UP:
             if (player_.getY() > 0 && grid_->getCell(player_.getX(), player_.getY() - 1) != OBSTACLE_CELL)
                 player_.move(dir);
             break;
-        case 2:
+        case GET_FROM_INPUT::DOWN:
             if (player_.getY() < GRID_SIZE - 1 && grid_->getCell(player_.getX(), player_.getY() + 1) != OBSTACLE_CELL)
                 player_.move(dir);
             break;
-        case 3:
+        case GET_FROM_INPUT::LEFT:
             if (player_.getX() > 0 && grid_->getCell(player_.getX() - 1, player_.getY()) != OBSTACLE_CELL)
                 player_.move(dir);
             break;
-        case 4:
+        case GET_FROM_INPUT::RIGHT:
             if (player_.getX() < GRID_SIZE - 1 && grid_->getCell(player_.getX() + 1, player_.getY()) != OBSTACLE_CELL)
                 player_.move(dir);
             break;

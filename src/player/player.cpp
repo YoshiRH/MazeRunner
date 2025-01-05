@@ -5,15 +5,15 @@
 
 
 player::player(int x, int y)
-        : pos_x{x}, pos_y{y}, health_{20,20}, hungry_{20,20}, moveCounter_{0} {
+        : pos_x{x}, pos_y{y}, moveCounter_{0} {
 
 }
 
-int player::getX() const { // Getter
+int player::getX() const {
     return pos_x;
 }
 
-int player::getY() const { // Getter
+int player::getY() const {
     return pos_y;
 }
 
@@ -24,25 +24,33 @@ void player::hasMoved() {
 }
 
 // Function that take direction (1-4) and depending on that moving player in the right directory
-void player::move(DIRECTIONS dir) {
+void player::move(GET_FROM_INPUT dir) {
     switch (dir) {
-        case 1:
-            pos_y--;
-            hasMoved();
+        case DOWN:
+            if(pos_y < GRID_SIZE) {
+                pos_y++;
+                hasMoved();
+            }
             break;
-        case 2:
-            pos_y++;
-            hasMoved();
+        case UP:
+            if(pos_y > 0) {
+                pos_y--;
+                hasMoved();
+            }
             break;
-        case 3:
-            pos_x--;
-            hasMoved();
+        case LEFT:
+            if(pos_x > 0) {
+                pos_x--;
+                hasMoved();
+            }
             break;
-        case 4:
-            pos_x++;
-            hasMoved();
+        case RIGHT:
+            if(pos_x < GRID_SIZE) {
+                pos_x++;
+                hasMoved();
+            }
             break;
-        case 5:
+        case START_POSITION:
             pos_x = 0;
             pos_y = 0;
             break;
@@ -51,66 +59,48 @@ void player::move(DIRECTIONS dir) {
     }
 }
 
-int player::getCurrentHealth() const {
-    return health_.get("current");
-}
-
-int player::getCurrentHungry() const {
-    return hungry_.get("current");
-}
-
-int player::getMaxHealth() const {
-    return health_.get("max");
-}
-
-int player::getMaxHungry() const {
-    return hungry_.get("max");
-}
-
-// Update function
-void player::updateHealthByValue(int value) {
-    health_.update("current", value);
-}
-
-// Update function
-void player::updateHungryByValue(int value) {
-    hungry_.update("current", value);
-}
-
-// Update function
-void player::updateMaxHealthByValue(int value) {
-    health_.update("max", value);
-}
-
-// Update function
-void player::updateMaxHungryByValue(int value) {
-    hungry_.update("max", value);
-}
 
 // Reset stats to their maximum
 void player::resetStats() {
-    health_ = statistic{health_.get("max"), health_.get("max")};
-    hungry_ = statistic{hungry_.get("max"), hungry_.get("max")};
+    stats_.updateCurrentStat(stat_type::Health, stats_.getMaxStat(stat_type::Health));
+    stats_.updateCurrentStat(stat_type::Hungry, stats_.getMaxStat(stat_type::Hungry));
     moveCounter_ = 0;
 }
 
 // Check if player is dead (His health is <= 0)
 bool player::isDead() const {
-    return health_.isZero();
+    return stats_.getCurrentStat(stat_type::Health) <= 0;
 }
 
 // At every "HUNGRY_DECAY_MOVE" (3 at default) step, decrease the hungry stat, and if hungry is equal to 0
 // then decrease hp by one;
 void player::decreaseHungryAtMove() {
-    if(moveCounter_ % HUNGRY_DECAY_MOVES == 0) {
-        if(hungry_.get("current") == 0)
-            health_.update("current", -1);
+    if (moveCounter_ % HUNGRY_DECAY_MOVES == 0) {
+        if(stats_.getCurrentStat(stat_type::Hungry) == 0)
+            stats_.updateCurrentStat(stat_type::Health, -1);
         else
-            hungry_.update("current",-1);
+            stats_.updateCurrentStat(stat_type::Hungry, -1);
     }
 }
 
 void player::displayStats() const {
-    std::cout << "Health: " << health_.get("current") << "/" << health_.get("max")
-    << "  |  Hungry: " << hungry_.get("current") << "/" << hungry_.get("max");
+    std::cout << "Health: " << stats_.getCurrentStat(stat_type::Health) << "/" << stats_.getMaxStat(stat_type::Health)
+              << "  |  Hungry: " << stats_.getCurrentStat(stat_type::Hungry) << "/"
+              << stats_.getMaxStat(stat_type::Hungry);
+}
+
+int player::getCurrentStat(stat_type type) const {
+    return stats_.getCurrentStat(type);
+}
+
+int player::getMaxStat(stat_type type) const {
+    return stats_.getMaxStat(type);
+}
+
+void player::updateCurrentStat(stat_type type, int value) {
+    stats_.updateCurrentStat(type, value);
+}
+
+void player::updateMaxStat(stat_type type, int value) {
+    stats_.updateMaxStat(type, value);
 }

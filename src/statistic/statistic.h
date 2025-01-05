@@ -3,16 +3,18 @@
 #include <iostream>
 #include <algorithm>
 
+#include "../stat_type/stat_type.h"
+
 // Class wraper for individual stats
 class statistic {
-    int current_;
-    int maximum_;
+    int health_current, health_max;
+    int hungry_current, hungry_max;
 
 public:
-    statistic(int initialValue, int maxValue);
+    statistic(int Health, int Hungry);
 
-    int get(std::string&& type) const; // Types: 'current' | 'max'
-    void update(std::string&& type, int value); // Types: 'current' | 'max'
-
-    [[nodiscard]] bool isZero() const; // Check if current stats is equal to 0
+    int getCurrentStat(stat_type type) const;
+    int getMaxStat(stat_type type) const;
+    void updateCurrentStat(stat_type type, int value);
+    void updateMaxStat(stat_type type, int value);
 };

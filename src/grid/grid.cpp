@@ -14,17 +14,17 @@ bool grid::isInBounds(int x, int y, int width, int height) const {
 }
 
 void grid::setCell(int x, int y, char value) {
-    if (isInBounds(x, y, grid_[0].size(), grid_.size())) { // Check if x,y is in the grid
+    if (isInBounds(x, y, GRID_SIZE, GRID_SIZE)) { // Check if x,y is in the grid
         grid_[y][x] = value;
     } else
         throw std::out_of_range("Cell is out of the grid");
 }
 
 char grid::getCell(int x, int y) const {
-    if (isInBounds(x, y, grid_[0].size(), grid_.size())) { // Check if x,y is in the grid
+    if (isInBounds(x, y, GRID_SIZE, GRID_SIZE)) { // Check if x,y is in the grid
         return grid_[y][x];
     } else
-        return '\0';
+        throw std::out_of_range("Cell is out of the grid");
 }
 
 void grid::clearCell(int x, int y) {
@@ -41,8 +41,8 @@ void grid::displayMap(int playerX, int playerY) const {
     auto visibility = calculateVisibility(playerX, playerY);
 
     // Iterate through the whole grid and print out our map
-    for (int y = 0; y < grid_.size(); y++) {
-        for (int x = 0; x < grid_[y].size(); x++) {
+    for (int y = 0; y < GRID_SIZE; y++) {
+        for (int x = 0; x < GRID_SIZE; x++) {
             if (visibility[y][x]) // Checking if certain cell is in the playerView
                 std::cout << grid_[y][x] << ' ';
             else
@@ -88,12 +88,10 @@ bool grid::blockedByWall(int startX, int startY, int targetX, int targetY) const
 // Function that set the view area of player, take player position and check terrain around him (of viewDistance cells)
 std::vector<std::vector<bool>>
 grid::calculateVisibility(int playerX, int playerY) const {
-    int gridHeight = grid_.size();
-    int gridWidth = grid_[0].size();
 
     // Vector with the same size as our map, each cell in this vector mean if the same cell on our map is visible
     // true -> visible | false -> hidden
-    std::vector<std::vector<bool>> visible(gridHeight, std::vector<bool>(gridWidth, false));
+    std::vector<std::vector<bool>> visible(GRID_SIZE, std::vector<bool>(GRID_SIZE, false));
 
     // Iterate around the player
     for (int y = -viewDistance_; y <= viewDistance_; y++) {
@@ -102,7 +100,7 @@ grid::calculateVisibility(int playerX, int playerY) const {
             int cellY = playerY + y;
 
             // Check if there is a obstacle in player view, if no,then set this cell as visible
-            if (isInBounds(cellX, cellY, gridWidth, gridHeight) && !blockedByWall(playerX, playerY, cellX, cellY)) {
+            if (isInBounds(cellX, cellY, GRID_SIZE, GRID_SIZE) && !blockedByWall(playerX, playerY, cellX, cellY)) {
                 visible[cellY][cellX] = true;
             }
         }

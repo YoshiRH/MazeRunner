@@ -17,7 +17,7 @@ private:
     std::unique_ptr<grid> grid_; // Actual grid
 
     std::vector<std::string> maps_; // Vector of all maps in game
-    std::shared_ptr<map> current_map_; // Map obiect of current map
+    std::shared_ptr<map> current_map_; // Map object of current map
     int current_map_index_;
 
     player player_; // player object
@@ -25,10 +25,10 @@ private:
     bool running_; // Check if game is running
 
 public:
-    explicit game(const std::vector<std::string>& map_files);
+    explicit game(const std::vector<std::string> &map_files);
 
     void loadFile(int index); // Load specific map by index
-    int getInput(); // Get input from user
+    GET_FROM_INPUT getInput(); // Get input from user
 
     void runGame(); // Loop function that is running whole game
     void nextLevel(); // Funtion to load next level
@@ -37,5 +37,5 @@ public:
     void showMainMenu(); // Main menu
     void showGameOverMenu(); // Game over menu
 
-    void movePlayer(DIRECTIONS dir); // Function to move player in specific direction
+    void movePlayer(GET_FROM_INPUT dir); // Function to move player in specific direction
 };

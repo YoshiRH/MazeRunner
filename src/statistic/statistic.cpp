@@ -1,31 +1,57 @@
 #include "statistic.h"
 
 // Constructor
-statistic::statistic(int initialValue, int maxValue)
-:current_{initialValue}, maximum_{maxValue}{
+statistic::statistic(int health, int hungry)
+        : health_current{health}, health_max{health}, hungry_current{hungry}, hungry_max{hungry} {
 
 }
 
-// Types: 'current' | 'max'
-int statistic::get(std::string &&type) const {
-    if(type == "current")
-        return current_;
-    else if(type == "max")
-        return maximum_;
-    else
-        std::cerr << "Incorret type of statistic in get method.\n";
+int statistic::getCurrentStat(stat_type type) const {
+    switch (type) {
+        case stat_type::Health:
+            return health_current;
+        case stat_type::Hungry:
+            return hungry_current;
+    }
+
+    return 0;
 }
 
-// Types: 'current' | 'max'
-void statistic::update(std::string &&type, int value) {
-    if(type == "current")
-        current_ = std::clamp(current_+value, 0, maximum_);
-    else if(type == "max")
-        maximum_ = std::clamp(maximum_+value, 0,100);
-    else
-        std::cerr << "Incorret type of statistic in update method.\n";
+int statistic::getMaxStat(stat_type type) const {
+    switch (type) {
+        case stat_type::Health:
+            return health_max;
+        case stat_type::Hungry:
+            return hungry_max;
+    }
+
+    return 0;
 }
 
-bool statistic::isZero() const {
-    return current_ <= 0;
+void statistic::updateCurrentStat(stat_type type, int value) {
+    switch (type) {
+        case stat_type::Health:
+            health_current = std::max(0, health_current + value);
+            health_current = std::min(health_current, health_max);
+            break;
+        case stat_type::Hungry:
+            hungry_current = std::max(0, hungry_current + value);
+            hungry_current = std::min(hungry_current, hungry_max);
+            break;
+    }
+}
+
+void statistic::updateMaxStat(stat_type type, int value) {
+    switch (type) {
+        case stat_type::Health:
+            health_max += value;
+            health_max = std::clamp(health_max, 0, 100);
+            health_current = std::min(health_current, health_max);
+            break;
+        case stat_type::Hungry:
+            hungry_max += value;
+            hungry_max = std::clamp(hungry_max, 0, 100);
+            hungry_current = std::min(hungry_current, hungry_max);
+            break;
+    }
 }

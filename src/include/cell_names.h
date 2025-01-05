@@ -11,10 +11,12 @@ constexpr char HIDDEN_CELL = ' ';
 
 // Enum with directions that is used for moving player on map
 // UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4
-enum DIRECTIONS {
+enum GET_FROM_INPUT {
     UP = 1,
     DOWN,
     LEFT,
     RIGHT,
-    START_POSITION
+    START_POSITION,
+    PAUSE_MENU,
+    WRONG_INPUT
 };
