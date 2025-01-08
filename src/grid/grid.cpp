@@ -10,7 +10,7 @@ grid::grid(const std::shared_ptr<map> &map)
 
 // Created function to check if the cell is in the grid to decrease the amount of code
 bool grid::isInBounds(int x, int y, int width, int height) const {
-    return x >= 0 && x <= width && y >= 0 && y <= height;
+    return x >= 0 && x < width && y >= 0 && y < height;
 }
 
 void grid::setCell(int x, int y, char value) {
@@ -33,9 +33,6 @@ void grid::clearCell(int x, int y) {
 
 // Display 2D grid (map) in the console
 void grid::displayMap(int playerX, int playerY) const {
-    std::cout << system("cls");
-    std::cout << "[Use arrows to move around]\n";
-
     // Grid of bools with the same size as our map grid, false -> not visible, true -> visible
     // if certain cell has visible state in this vector we can print that cell in the console
     auto visibility = calculateVisibility(playerX, playerY);
@@ -43,10 +40,7 @@ void grid::displayMap(int playerX, int playerY) const {
     // Iterate through the whole grid and print out our map
     for (int y = 0; y < GRID_SIZE; y++) {
         for (int x = 0; x < GRID_SIZE; x++) {
-            if (visibility[y][x]) // Checking if certain cell is in the playerView
-                std::cout << grid_[y][x] << ' ';
-            else
-                std::cout << HIDDEN_CELL << ' ';
+            std::cout << std::setw(2) << (visibility[y][x] ? grid_[y][x] : HIDDEN_CELL) << ' ';
         }
         std::cout << '\n';
     }
@@ -67,7 +61,7 @@ bool grid::blockedByWall(int startX, int startY, int targetX, int targetY) const
             return false; // There is no Wall in the player sight
         }
 
-        if (grid_[startY][startX] == OBSTACLE_CELL && !(startX == targetX && startY == targetY)) {
+        if (grid_[startY][startX] == OBSTACLE_CELL) {
             return true; // Found wall in the line sight
         }
 

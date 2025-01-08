@@ -5,6 +5,9 @@
 #include <iostream>
 #include <vector>
 #include <conio.h>
+#include <thread>
+#include <chrono>
+#include <map>
 
 // Files
 #include "../map/map.h"
@@ -31,11 +34,16 @@ public:
     GET_FROM_INPUT getInput(); // Get input from user
 
     void runGame(); // Loop function that is running whole game
-    void nextLevel(); // Funtion to load next level
+    void displayFrame();
+    void handleInput(GET_FROM_INPUT input);
+    void nextLevel(); // Function to load next level
 
-    void showPauseMenu(); // Pause menu
-    void showMainMenu(); // Main menu
-    void showGameOverMenu(); // Game over menu
+    void showPauseMenu();
+    void showMainMenu();
+    void showGameOverMenu();
+    void showControls();
 
-    void movePlayer(GET_FROM_INPUT dir); // Function to move player in specific direction
+    void movePlayer(GET_FROM_INPUT dir); // Function to check if player can move in specific direction and moving him
+    void showGameInfo() const;
 };
+

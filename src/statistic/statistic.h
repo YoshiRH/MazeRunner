@@ -13,8 +13,8 @@ class statistic {
 public:
     statistic(int Health, int Hungry);
 
-    int getCurrentStat(stat_type type) const;
-    int getMaxStat(stat_type type) const;
+    [[nodiscard]] int getCurrentStat(stat_type type) const;
+    [[nodiscard]] int getMaxStat(stat_type type) const;
     void updateCurrentStat(stat_type type, int value);
     void updateMaxStat(stat_type type, int value);
 };

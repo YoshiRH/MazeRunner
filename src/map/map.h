@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <vector>
+#include <iostream>
 
 #include "../include/cell_names.h"
 
@@ -18,6 +19,6 @@ public:
     void setCell(int x, int y, char value); // Set certain value in certain place in grid
     [[nodiscard]] char getCell(int x, int y) const; // return value from cell
 
-    [[nodiscard]] std::vector<std::vector<char>> getLayout() const; // return layout (passing map -> 2D GRID)
+    [[nodiscard]] const std::vector<std::vector<char>>& getLayout() const; // return layout (passing map -> 2D GRID)
     void loadFromFile(const std::string& filename); // Loading map template from .txt file
 };
