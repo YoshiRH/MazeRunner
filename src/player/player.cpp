@@ -5,7 +5,6 @@
 
 player::player(int x, int y)
         : pos_x_{x}, pos_y_{y}, move_counter_{0} {
-
 }
 
 int player::getX() const {
@@ -64,19 +63,18 @@ bool player::isDead() const {
 }
 
 // At every "HUNGRY_DECAY_MOVE" (3 at default) step, decrease the hungry stat, and if hungry is equal to 0
-// then decrease hp by one;
+// then decrease hp by one by every step;
 void player::decreaseHungryAtMove() {
-    if (move_counter_ % HUNGRY_DECAY_MOVES == 0) {
-        if(stats_.getCurrentStat(stat_type::Hungry) == 0)
-            stats_.updateCurrentStat(stat_type::Health, -1);
-        else
-            stats_.updateCurrentStat(stat_type::Hungry, -1);
+    if(stats_.getCurrentStat(stat_type::Hungry) > 0 && (move_counter_ % HUNGRY_DECAY_MOVES == 0)) {
+        stats_.updateCurrentStat(stat_type::Hungry, -1);
+    }
+    else if (stats_.getCurrentStat(stat_type::Hungry) <= 0) {
+        stats_.updateCurrentStat(stat_type::Health,-1);
     }
 }
 
 void player::displayStats() const {
-    auto drawBar = [](int current, int max) {
-        int barWidth = 10;
+    auto drawBar = [](int current, int max, int barWidth) {
         int filledWidth = (current * barWidth) / max;
         std::cout << "[";
         for (int i = 0; i < barWidth; ++i) {
@@ -86,10 +84,11 @@ void player::displayStats() const {
         std::cout << "]";
     };
 
+
     std::cout << "Health: ";
-    drawBar(stats_.getCurrentStat(stat_type::Health), stats_.getMaxStat(stat_type::Health));
+    drawBar(stats_.getCurrentStat(stat_type::Health), stats_.getMaxStat(stat_type::Health), 10);
     std::cout << "  |  Hungry: ";
-    drawBar(stats_.getCurrentStat(stat_type::Hungry), stats_.getMaxStat(stat_type::Hungry));
+    drawBar(stats_.getCurrentStat(stat_type::Hungry), stats_.getMaxStat(stat_type::Hungry),5);
     std::cout << "\n";
 }
 
@@ -107,4 +106,12 @@ void player::updateCurrentStat(stat_type type, int value) {
 
 void player::updateMaxStat(stat_type type, int value) {
     stats_.updateMaxStat(type, value);
+}
+
+void player::displayInventory() const {
+    inventory_.showInventory();
+}
+
+void player::useItem(const std::string &item_name) {
+    inventory_.useItem(item_name, *this);
 }

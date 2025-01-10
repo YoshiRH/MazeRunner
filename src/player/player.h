@@ -7,6 +7,7 @@
 #include "../include/cell_names.h"
 #include "../statistic/statistic.h"
 #include "../stat_type/stat_type.h"
+#include "../inventory/inventory.h"
 
 class player {
 private:
@@ -15,10 +16,11 @@ private:
     int pos_y_;
 
     // Player stats
-    statistic stats_{20,20};
+    statistic stats_{10,20};
 
     int move_counter_;
     static constexpr int HUNGRY_DECAY_MOVES {3};
+    inventory inventory_;
 
 public:
     explicit player(int x = 0, int y = 0);
@@ -31,6 +33,8 @@ public:
     void updateCurrentStat(stat_type type, int value);
     void updateMaxStat(stat_type type, int value);
 
+    void useItem(const std::string& item_name);
+
     void resetStats(); // Reset stats to their maximum
     bool isDead() const; // Check if player is dead
 
@@ -38,6 +42,7 @@ public:
     void hasMoved();
 
     void displayStats() const;
+    void displayInventory() const;
 
 private:
 

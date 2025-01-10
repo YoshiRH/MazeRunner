@@ -20,5 +20,5 @@ public:
     [[nodiscard]] char getCell(int x, int y) const; // return value from cell
 
     [[nodiscard]] const std::vector<std::vector<char>>& getLayout() const; // return layout (passing map -> 2D GRID)
-    void loadFromFile(const std::string& filename); // Loading map template from .txt file
+    void loadFromFile(std::string& filename); // Loading map template from .txt file
 };

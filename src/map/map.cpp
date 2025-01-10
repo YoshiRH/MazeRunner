@@ -26,7 +26,7 @@ const std::vector<std::vector<char>>& map::getLayout() const {
     return layout_;
 }
 
-void map::loadFromFile(const std::string &filename) {
+void map::loadFromFile(std::string &filename) {
     try {
     map_file_manager fileManager(filename); // File handling class
     layout_ = fileManager.loadFromFile(); // Taking loaded map (2D GRID) from file to the map.layout_

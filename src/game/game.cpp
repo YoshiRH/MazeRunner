@@ -34,8 +34,11 @@ GET_FROM_INPUT game::getInput() {
             default:
                 break;
         }
-    } else if (key == 'x' || key == 'X')
+    } else if (key == 'x' || key == 'X') {
         return GET_FROM_INPUT::PAUSE_MENU;
+    } else if (key == 'p' || key == 'P') {
+        return GET_FROM_INPUT::USE_POTION;
+    }
 
     return GET_FROM_INPUT::WRONG_INPUT;
 }
@@ -210,6 +213,7 @@ void game::displayFrame() {
     std::cout << "\033[2J\033[H"; // Better way for system("cls")
     player_.displayStats();
     grid_->displayMap(player_.getX(), player_.getY());
+    player_.displayInventory();
     showGameInfo();
 }
 
@@ -217,7 +221,10 @@ void game::handleInput(GET_FROM_INPUT input) {
     if (input == GET_FROM_INPUT::PAUSE_MENU) {
         showPauseMenu();
         return;
+    } else if (input == GET_FROM_INPUT::USE_POTION) {
+        player_.useItem("Health Potion");
     }
+
 
     grid_->clearCell(player_.getX(), player_.getY());
     movePlayer(input);
