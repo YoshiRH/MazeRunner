@@ -8,9 +8,9 @@
 #include "../statistic/statistic.h"
 #include "../stat_type/stat_type.h"
 #include "../inventory/inventory.h"
+#include "../map/map.h"
 
 class player {
-private:
     // Position of player on 2D GRID (map)
     int pos_x_;
     int pos_y_;
@@ -20,9 +20,14 @@ private:
 
     int move_counter_;
     static constexpr int HUNGRY_DECAY_MOVES {3};
-    inventory inventory_;
+
+    void decreaseHungryAtMove();
 
 public:
+    // Objects ------------------------------
+    inventory inventory_;
+
+    // Functions ----------------------------
     explicit player(int x = 0, int y = 0);
 
     [[nodiscard]] int getX() const;
@@ -43,8 +48,4 @@ public:
 
     void displayStats() const;
     void displayInventory() const;
-
-private:
-
-    void decreaseHungryAtMove();
 };

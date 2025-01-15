@@ -4,6 +4,7 @@
 
 class player;
 
+// Item base class
 class item {
 public:
     virtual ~item() = default;

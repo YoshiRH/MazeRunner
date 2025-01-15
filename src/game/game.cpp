@@ -11,7 +11,13 @@ void game::loadFile(int index) {
         throw std::runtime_error("Index of the map is invalid");
 
     current_map_ = std::make_unique<map>(GRID_SIZE, GRID_SIZE);
-    current_map_->loadFromFile(maps_[current_map_index_]);
+    try{
+        current_map_->loadFromFile(maps_[current_map_index_]);
+    } catch (std::exception& e) {
+        std::cerr << "Error, unable to load map from \"game.cpp\": " << e.what() << '\n';
+        running_ = false;
+    }
+
 
     grid_ = std::make_unique<grid>(current_map_);
 }
@@ -19,10 +25,7 @@ void game::loadFile(int index) {
 GET_FROM_INPUT game::getInput() {
     int key = _getch();
 
-    if (key == 224) {
-        key = _getch();
-
-        switch (key) {
+    switch (key) {
             case 72:
                 return GET_FROM_INPUT::UP;
             case 80:
@@ -31,16 +34,15 @@ GET_FROM_INPUT game::getInput() {
                 return GET_FROM_INPUT::LEFT;
             case 77:
                 return GET_FROM_INPUT::RIGHT;
+            case 'x':
+                return GET_FROM_INPUT::PAUSE_MENU;
+            case '1':
+                return GET_FROM_INPUT::USE_POTION;
+            case '2':
+                return GET_FROM_INPUT::EAT_FOOD;
             default:
-                break;
-        }
-    } else if (key == 'x' || key == 'X') {
-        return GET_FROM_INPUT::PAUSE_MENU;
-    } else if (key == 'p' || key == 'P') {
-        return GET_FROM_INPUT::USE_POTION;
+                return GET_FROM_INPUT::WRONG_INPUT;
     }
-
-    return GET_FROM_INPUT::WRONG_INPUT;
 }
 
 void game::runGame() {
@@ -48,6 +50,7 @@ void game::runGame() {
         displayFrame();
         auto input = getInput();
         handleInput(input);
+        managePlayerPosition(input);
     }
 
 }
@@ -59,7 +62,7 @@ void game::nextLevel() {
         std::cout << "=== Congratulations! that's the end of the game ===\n";
 
         std::this_thread::sleep_for(2s);
-        exit(0);
+        running_ = false;
     }
 
     loadFile(current_map_index_);
@@ -70,14 +73,14 @@ void game::nextLevel() {
 
 void game::showPauseMenu() {
     while (true) {
-        std::cout.flush();
-        std::cout << "\033[2J\033[H";
+        clearScreen();
 
         std::cout << "=== PAUSE MENU ===\n";
         std::cout << "1. Resume game\n";
-        std::cout << "2. Restart game\n";
-        std::cout << "3. Back to title\n";
-        std::cout << "4. Exit game\n";
+        std::cout << "2. Controls\n";
+        std::cout << "3. Restart game\n";
+        std::cout << "4. Back to title\n";
+        std::cout << "0. Exit game\n\n";
         std::cout << "Chose option: ";
 
         int choice;
@@ -87,16 +90,16 @@ void game::showPauseMenu() {
             case 1:
                 return;
             case 2:
-                current_map_index_ = 0;
-                loadFile(current_map_index_);
-                player_ = player();
-                grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
-                return;
+                showControls();
+                break;
             case 3:
-                showMainMenu();
+                newGame();
                 return;
             case 4:
-                exit(0);
+                showMainMenu();
+                return;
+            case 0:
+                running_ = false;
             default:
                 std::cout << "Incorrect input, try again\n";
         }
@@ -105,13 +108,12 @@ void game::showPauseMenu() {
 
 void game::showMainMenu() {
     while (true) {
-        std::cout.flush();
-        std::cout << "\033[2J\033[H";
+        clearScreen();
 
         std::cout << "=== MAIN MENU ===\n";
         std::cout << "1. New game\n";
         std::cout << "2. Controls\n";
-        std::cout << "3. Exit game\n";
+        std::cout << "3. Exit game\n\n";
         std::cout << "Chose option: ";
 
         int choice;
@@ -119,15 +121,13 @@ void game::showMainMenu() {
 
         switch (choice) {
             case 1:
-                loadFile(current_map_index_);
-                player_ = player(0, 0);
-                grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
+                newGame();
                 return;
             case 2:
                 showControls();
                 break;
             case 3:
-                exit(0);
+                running_ = false;
             default:
                 std::cout << "Incorrect input, try again\n";
         }
@@ -136,8 +136,7 @@ void game::showMainMenu() {
 
 void game::showGameOverMenu() {
     while (true) {
-        std::cout.flush();
-        std::cout << "\033[2J\033[H";
+        clearScreen();
 
         std::cout << "=== GAME OVER, YOU DIED ===\n";
         std::cout << "1. New game\n";
@@ -149,20 +148,40 @@ void game::showGameOverMenu() {
 
         switch (choice) {
             case 1:
-                current_map_index_ = 0;
-                loadFile(current_map_index_);
-                player_ = player(0, 0);
-                grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
+                newGame();
                 return;
             case 2:
-                exit(0);
+                running_ = false;
             default:
                 std::cout << "Incorrect input, try again\n";
         }
     }
 }
 
+void game::showControls() {
+    while (true) {
+        clearScreen();
+
+        std::cout << "=== CONTROLS ===\n";
+        std::cout << "[ARROWS] -  Use arrows to move around\n";
+        std::cout << "[X] - Open up pause menu\n\n";
+        std::cout << "[1] - Use Health potion\n";
+        std::cout << "[2] - Eat Food\n\n";
+        std::cout << "0. Exit\n";
+
+        std::cout << "Enter: ";
+
+        int choice;
+        std::cin >> choice;
+
+        if(choice == 0) {
+            break;
+        }
+    }
+}
+
 void game::movePlayer(GET_FROM_INPUT dir) {
+    // Map that give us a value in which direction player would move depending on the key
     static const std::map<GET_FROM_INPUT, std::pair<int, int>> direction_map = {
             {GET_FROM_INPUT::UP, {0, -1}},
             {GET_FROM_INPUT::DOWN, {0, 1}},
@@ -175,13 +194,12 @@ void game::movePlayer(GET_FROM_INPUT dir) {
         int new_x = player_.getX() + it->second.first;
         int new_y = player_.getY() + it->second.second;
 
+        // Check if the next cell where player want's to move is clear
         if (new_x >= 0 && new_x < GRID_SIZE &&
             new_y >= 0 && new_y < GRID_SIZE &&
             grid_->getCell(new_x, new_y) != OBSTACLE_CELL) {
             player_.move(dir);
         }
-    } else {
-        std::cerr << "Invalid direction\n";
     }
 }
 
@@ -189,28 +207,11 @@ void game::showGameInfo() const {
     std::cout << "[Current floor: " << current_map_index_+1 << "/" << maps_.size() << "]\n\n";
 }
 
-void game::showControls() {
-    while (true) {
-        std::cout.flush();
-        std::cout << "\033[2J\033[H";
 
-        std::cout << "=== CONTROLS ===\n";
-        std::cout << "[ARROWS] -  Use arrows to move around\n";
-        std::cout << "[X] - Open up pause menu\n\n";
-        std::cout << "0. Exit\n";
-
-        std::cout << "Enter: ";
-        int choice;
-        std::cin >> choice;
-
-        if(choice == 0) {
-            break;
-        }
-    }
-}
 
 void game::displayFrame() {
-    std::cout << "\033[2J\033[H"; // Better way for system("cls")
+    clearScreen();
+
     player_.displayStats();
     grid_->displayMap(player_.getX(), player_.getY());
     player_.displayInventory();
@@ -218,14 +219,29 @@ void game::displayFrame() {
 }
 
 void game::handleInput(GET_FROM_INPUT input) {
-    if (input == GET_FROM_INPUT::PAUSE_MENU) {
-        showPauseMenu();
-        return;
-    } else if (input == GET_FROM_INPUT::USE_POTION) {
-        player_.useItem("Health Potion");
-    }
+    switch (input) {
+        case GET_FROM_INPUT::PAUSE_MENU:
+            showPauseMenu();
+            break;
+        case GET_FROM_INPUT::USE_POTION:
+            player_.useItem("Health Potion");
+            break;
+        case GET_FROM_INPUT::EAT_FOOD:
+            player_.useItem("Food");
+            break;
+        default:
+            return;
+    };
+}
 
+void game::newGame() {
+    current_map_index_ = 0;
+    loadFile(current_map_index_);
+    player_ = player(0, 0);
+    grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
+}
 
+void game::managePlayerPosition(GET_FROM_INPUT input) {
     grid_->clearCell(player_.getX(), player_.getY());
     movePlayer(input);
 
@@ -234,12 +250,26 @@ void game::handleInput(GET_FROM_INPUT input) {
         return;
     }
 
-    if (grid_->getCell(player_.getX(), player_.getY()) == NEXT_LEVEL_CELL) {
-        nextLevel();
-        return;
+    auto cell = grid_->getCell(player_.getX(), player_.getY());
+
+    switch (cell) {
+        case NEXT_LEVEL_CELL:
+            nextLevel();
+            break;
+        case HEALTH_POTION_CELL:
+        case FOOD_CELL:
+            current_map_->pickUpItem(player_.getX(), player_.getY(), player_.inventory_);
+            break;
+        default:
+            break;
     }
 
     grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
+}
+
+void game::clearScreen() {
+    std::cout.flush();
+    std::cout << "\033[2J\033[H";
 }
 
 

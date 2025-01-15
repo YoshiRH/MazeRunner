@@ -15,8 +15,6 @@ int statistic::getCurrentStat(stat_type type) const {
         default:
             return 0;
     }
-
-    return 0;
 }
 
 int statistic::getMaxStat(stat_type type) const {
@@ -30,6 +28,8 @@ int statistic::getMaxStat(stat_type type) const {
     return 0;
 }
 
+// Updating certain current stat by passed value and check if updated value is
+// between 0 and max_stat
 void statistic::updateCurrentStat(stat_type type, int value) {
     switch (type) {
         case stat_type::Health:
@@ -41,6 +41,7 @@ void statistic::updateCurrentStat(stat_type type, int value) {
     }
 }
 
+// Update certain max stat, between 1 and 100
 void statistic::updateMaxStat(stat_type type, int value) {
     switch (type) {
         case stat_type::Health:

@@ -19,8 +19,11 @@ add_executable(Rogue_like_project app/main.cpp
         src/statistic/statistic.cpp
         src/stat_type/stat_type.h
         src/w_item/item.h
-        src/Items/health_potion.h
-        src/Items/health_potion.cpp
+        src/Items/health_potion/health_potion.h
+        src/Items/health_potion/health_potion.cpp
         src/inventory/inventory.h
         src/inventory/inventory.cpp
+        src/Items/food/food.h
+        src/Items/food/food.cpp
+        src/Additionals/pair_hash/pair_hash.h
 )

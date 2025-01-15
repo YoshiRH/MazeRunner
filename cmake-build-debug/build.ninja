@@ -91,17 +91,23 @@ build CMakeFiles/Rogue_like_project.dir/src/statistic/statistic.cpp.obj: CXX_COM
   OBJECT_DIR = CMakeFiles\Rogue_like_project.dir
   OBJECT_FILE_DIR = CMakeFiles\Rogue_like_project.dir\src\statistic
 
-build CMakeFiles/Rogue_like_project.dir/src/Items/health_potion.cpp.obj: CXX_COMPILER__Rogue_like_project_unscanned_Debug D$:/Kodowanie/Rogue_like_project/src/Items/health_potion.cpp || cmake_object_order_depends_target_Rogue_like_project
-  DEP_FILE = CMakeFiles\Rogue_like_project.dir\src\Items\health_potion.cpp.obj.d
+build CMakeFiles/Rogue_like_project.dir/src/Items/health_potion/health_potion.cpp.obj: CXX_COMPILER__Rogue_like_project_unscanned_Debug D$:/Kodowanie/Rogue_like_project/src/Items/health_potion/health_potion.cpp || cmake_object_order_depends_target_Rogue_like_project
+  DEP_FILE = CMakeFiles\Rogue_like_project.dir\src\Items\health_potion\health_potion.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Rogue_like_project.dir
-  OBJECT_FILE_DIR = CMakeFiles\Rogue_like_project.dir\src\Items
+  OBJECT_FILE_DIR = CMakeFiles\Rogue_like_project.dir\src\Items\health_potion
 
 build CMakeFiles/Rogue_like_project.dir/src/inventory/inventory.cpp.obj: CXX_COMPILER__Rogue_like_project_unscanned_Debug D$:/Kodowanie/Rogue_like_project/src/inventory/inventory.cpp || cmake_object_order_depends_target_Rogue_like_project
   DEP_FILE = CMakeFiles\Rogue_like_project.dir\src\inventory\inventory.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Rogue_like_project.dir
   OBJECT_FILE_DIR = CMakeFiles\Rogue_like_project.dir\src\inventory
+
+build CMakeFiles/Rogue_like_project.dir/src/Items/food/food.cpp.obj: CXX_COMPILER__Rogue_like_project_unscanned_Debug D$:/Kodowanie/Rogue_like_project/src/Items/food/food.cpp || cmake_object_order_depends_target_Rogue_like_project
+  DEP_FILE = CMakeFiles\Rogue_like_project.dir\src\Items\food\food.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Rogue_like_project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Rogue_like_project.dir\src\Items\food
 
 
 # =============================================================================
@@ -111,7 +117,7 @@ build CMakeFiles/Rogue_like_project.dir/src/inventory/inventory.cpp.obj: CXX_COM
 #############################################
 # Link the executable Rogue_like_project.exe
 
-build Rogue_like_project.exe: CXX_EXECUTABLE_LINKER__Rogue_like_project_Debug CMakeFiles/Rogue_like_project.dir/app/main.cpp.obj CMakeFiles/Rogue_like_project.dir/src/grid/grid.cpp.obj CMakeFiles/Rogue_like_project.dir/src/map/map.cpp.obj CMakeFiles/Rogue_like_project.dir/src/map_file_manager/map_file_manager.cpp.obj CMakeFiles/Rogue_like_project.dir/src/player/player.cpp.obj CMakeFiles/Rogue_like_project.dir/src/game/game.cpp.obj CMakeFiles/Rogue_like_project.dir/src/statistic/statistic.cpp.obj CMakeFiles/Rogue_like_project.dir/src/Items/health_potion.cpp.obj CMakeFiles/Rogue_like_project.dir/src/inventory/inventory.cpp.obj
+build Rogue_like_project.exe: CXX_EXECUTABLE_LINKER__Rogue_like_project_Debug CMakeFiles/Rogue_like_project.dir/app/main.cpp.obj CMakeFiles/Rogue_like_project.dir/src/grid/grid.cpp.obj CMakeFiles/Rogue_like_project.dir/src/map/map.cpp.obj CMakeFiles/Rogue_like_project.dir/src/map_file_manager/map_file_manager.cpp.obj CMakeFiles/Rogue_like_project.dir/src/player/player.cpp.obj CMakeFiles/Rogue_like_project.dir/src/game/game.cpp.obj CMakeFiles/Rogue_like_project.dir/src/statistic/statistic.cpp.obj CMakeFiles/Rogue_like_project.dir/src/Items/health_potion/health_potion.cpp.obj CMakeFiles/Rogue_like_project.dir/src/inventory/inventory.cpp.obj CMakeFiles/Rogue_like_project.dir/src/Items/food/food.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Rogue_like_project.dir

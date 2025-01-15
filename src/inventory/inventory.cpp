@@ -1,9 +1,11 @@
 #include "inventory.h"
-#include "../Items/health_potion.h"
+#include "../Items/health_potion/health_potion.h"
+#include "../Items/food/food.h"
 
 #include <iostream>
 
 inventory::inventory() {
+    addItem(std::make_unique<food>(12),2);
     addItem(std::make_unique<health_potion>(6),3);
 }
 
@@ -12,10 +14,12 @@ void inventory::addItem(std::unique_ptr<item>item, int amount) {
 
     auto it = inventory_.find(item_name);
 
+    // Check if item is already in inventory, if yes then increase the amount
+    // if not, then add it to the inventory
     if(it != inventory_.end()) {
         it->second.second += amount;
     } else {
-        inventory_[item_name] = {std::move(item), amount};
+        inventory_.emplace(item_name, std::make_pair(std::move(item), amount));
     }
 
 }
@@ -34,8 +38,13 @@ void inventory::useItem(const std::string &item_name, player &player) {
 }
 
 void inventory::showInventory() const {
-    auto hp = inventory_.find("Health Potion");
-    std::cout << "Potions: " << hp->second.second << '\n';
+    std::cout << "Inventory:\n";
+
+    for(const auto& [name, item_pair] : inventory_) {
+        std::cout << name << ": " << item_pair.second << " | ";
+    }
+
+    std::cout << '\n';
 }
 
 

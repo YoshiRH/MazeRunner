@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../w_item/item.h"
-#include "../player/player.h"
+#include "../../w_item/item.h"
+#include "../../player/player.h"
 
 class health_potion : public item {
     int heal_value_;

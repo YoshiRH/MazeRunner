@@ -33,10 +33,14 @@ public:
     void loadFile(int index); // Load specific map by index
     GET_FROM_INPUT getInput(); // Get input from user
 
-    void runGame(); // Loop function that is running whole game
+    void runGame();
+    void newGame();
+
     void displayFrame();
+    static void clearScreen();
     void handleInput(GET_FROM_INPUT input);
-    void nextLevel(); // Function to load next level
+    void managePlayerPosition(GET_FROM_INPUT input);
+    void nextLevel();
 
     void showPauseMenu();
     void showMainMenu();

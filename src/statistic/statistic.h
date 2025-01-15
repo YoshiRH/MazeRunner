@@ -5,7 +5,7 @@
 
 #include "../stat_type/stat_type.h"
 
-// Class wraper for individual stats
+// Class wrapper for player stats
 class statistic {
     int health_current, health_max;
     int hungry_current, hungry_max;
