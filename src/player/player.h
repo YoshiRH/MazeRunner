@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdlib.h>
 #include <string>
 #include <algorithm>
 
@@ -28,7 +27,7 @@ public:
     inventory inventory_;
 
     // Functions ----------------------------
-    explicit player(int x = 0, int y = 0);
+    explicit player(int x = 1, int y = 1);
 
     [[nodiscard]] int getX() const;
     [[nodiscard]] int getY() const;

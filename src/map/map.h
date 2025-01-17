@@ -8,7 +8,7 @@
 #include <unordered_map>
 
 #include "../include/cell_names.h"
-#include "../Additionals/pair_hash/pair_hash.h"
+#include "../Additional/pair_hash/pair_hash.h"
 #include "../inventory/inventory.h"
 
 class item;
@@ -17,12 +17,9 @@ class item;
 class map {
 private:
     std::vector<std::vector<char>> layout_; // 2D GRID of char which represent a map
-    std::unordered_map<std::pair<int, int>, std::unique_ptr<item>, pair_hash> items_on_map_;
+    std::unordered_map<std::pair<int, int>, std::unique_ptr<item>, pair_hash> items_on_map_{};
 public:
-    map(int width = GRID_SIZE, int height = GRID_SIZE); // Size of map (2D GRID) later initialized in the game class
-
-    void setCell(int x, int y, char value); // Set certain value in certain place in grid
-    [[nodiscard]] char getCell(int x, int y) const; // return value from cell
+    explicit map(int width = GRID_SIZE, int height = GRID_SIZE); // Size of map (2D GRID) later initialized in the game class
 
     bool pickUpItem(int x, int y, inventory& player_inventory);
 

@@ -8,20 +8,6 @@ map::map(int width, int height)
 
 }
 
-void map::setCell(int x, int y, char value) {
-    if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) { // Check if x,y is in the grid
-        layout_[y][x] = value;
-    } else
-        throw std::out_of_range("Cell is out of the grid");
-}
-
-char map::getCell(int x, int y) const {
-    if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) { // Check if x,y is in the grid
-        return layout_[y][x];
-    } else
-        throw std::out_of_range("Cell is out of the grid!");
-}
-
 const std::vector<std::vector<char>>& map::getLayout() const {
     return layout_;
 }

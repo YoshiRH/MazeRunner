@@ -7,7 +7,7 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "../Additionals/pair_hash/pair_hash.h"
+#include "../Additional/pair_hash/pair_hash.h"
 #include "../Items/health_potion/health_potion.h"
 #include "../Items/food/food.h"
 #include "../include/cell_names.h"

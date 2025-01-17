@@ -8,6 +8,6 @@ class health_potion : public item {
 
 public:
     explicit health_potion(int value);
-    std::string getName() const override;
+    [[nodiscard]] std::string getName() const override;
     void use(player& player) override;
 };

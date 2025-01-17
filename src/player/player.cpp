@@ -41,8 +41,8 @@ void player::move(GET_FROM_INPUT dir) {
             hasMoved();
             break;
         case GET_FROM_INPUT::START_POSITION:
-            pos_x_ = 0;
-            pos_y_ = 0;
+            pos_x_ = 1;
+            pos_y_ = 1;
             break;
         default:
             std::cerr << "Invalid direction\n";
@@ -115,4 +115,5 @@ void player::displayInventory() const {
 void player::useItem(const std::string &item_name) {
     inventory_.useItem(item_name, *this);
 }
+
 

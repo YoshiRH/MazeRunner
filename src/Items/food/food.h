@@ -10,6 +10,6 @@ class food : public item {
 
 public:
     explicit food(int value);
-    std::string getName() const override;
+    [[nodiscard]] std::string getName() const override;
     void use(player& player) override;
 };

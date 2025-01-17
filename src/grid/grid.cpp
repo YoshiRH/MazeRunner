@@ -9,7 +9,7 @@ grid::grid(const std::shared_ptr<map> &map)
 }
 
 // Created function to check if the cell is in the grid to decrease the amount of code
-bool grid::isInBounds(int x, int y, int width, int height) const {
+bool grid::isInBounds(int x, int y, int width, int height) {
     return x >= 0 && x < width && y >= 0 && y < height;
 }
 
@@ -33,7 +33,7 @@ void grid::clearCell(int x, int y) {
 
 // Display 2D grid (map) in the console
 void grid::displayMap(int playerX, int playerY) const {
-    // Grid of bools with the same size as our map grid, false -> not visible, true -> visible
+    // Grid of bool with the same size as our map grid, false -> not visible, true -> visible
     // if certain cell has visible state in this vector we can print that cell in the console
     auto visibility = calculateVisibility(playerX, playerY);
 
@@ -93,7 +93,7 @@ grid::calculateVisibility(int playerX, int playerY) const {
             int cellX = playerX + x;
             int cellY = playerY + y;
 
-            // Check if there is a obstacle in player view, if no,then set this cell as visible
+            // Check if there is an obstacle in player view, if no,then set this cell as visible
             if (isInBounds(cellX, cellY, GRID_SIZE, GRID_SIZE) && !blockedByWall(playerX, playerY, cellX, cellY)) {
                 visible[cellY][cellX] = true;
             }

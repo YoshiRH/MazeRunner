@@ -25,7 +25,7 @@ public:
     // Additional function for displayMap, for detecting walls and blocking vision behind them
     [[nodiscard]] bool blockedByWall(int startX, int startY, int targetX, int targetY) const;
     // Function to check if certain [x,y] position is in the bounds (use for check if cell is in the grid)
-    [[nodiscard]] bool isInBounds(int x, int y, int width, int height) const;
+    [[nodiscard]] static bool isInBounds(int x, int y, int width, int height) ;
 
     // Calculate the area of player view
     [[nodiscard]] std::vector<std::vector<bool>> calculateVisibility(int playerX, int playerY) const;

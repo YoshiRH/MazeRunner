@@ -5,8 +5,8 @@
 #include <iostream>
 
 inventory::inventory() {
-    addItem(std::make_unique<food>(12),2);
-    addItem(std::make_unique<health_potion>(6),3);
+    addItem(std::make_unique<food>(12),3);
+    addItem(std::make_unique<health_potion>(6),2);
 }
 
 void inventory::addItem(std::unique_ptr<item>item, int amount) {

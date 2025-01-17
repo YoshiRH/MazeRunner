@@ -1,7 +1,7 @@
 #include "game.h"
 
 game::game(const std::vector<std::string> &map_files)
-        : maps_{map_files}, current_map_index_{0}, running_{true}, player_{0, 0} {
+        : maps_{map_files}, current_map_index_{0}, running_{true}, player_{1, 1} {
 
 }
 
@@ -15,7 +15,7 @@ void game::loadFile(int index) {
         current_map_->loadFromFile(maps_[current_map_index_]);
     } catch (std::exception& e) {
         std::cerr << "Error, unable to load map from \"game.cpp\": " << e.what() << '\n';
-        running_ = false;
+        exit(0);;
     }
 
 
@@ -62,7 +62,7 @@ void game::nextLevel() {
         std::cout << "=== Congratulations! that's the end of the game ===\n";
 
         std::this_thread::sleep_for(2s);
-        running_ = false;
+        exit(0);;
     }
 
     loadFile(current_map_index_);
@@ -99,7 +99,7 @@ void game::showPauseMenu() {
                 showMainMenu();
                 return;
             case 0:
-                running_ = false;
+                exit(0);;
             default:
                 std::cout << "Incorrect input, try again\n";
         }
@@ -127,7 +127,7 @@ void game::showMainMenu() {
                 showControls();
                 break;
             case 3:
-                running_ = false;
+                exit(0);;
             default:
                 std::cout << "Incorrect input, try again\n";
         }
@@ -151,7 +151,7 @@ void game::showGameOverMenu() {
                 newGame();
                 return;
             case 2:
-                running_ = false;
+                exit(0);
             default:
                 std::cout << "Incorrect input, try again\n";
         }
@@ -237,7 +237,7 @@ void game::handleInput(GET_FROM_INPUT input) {
 void game::newGame() {
     current_map_index_ = 0;
     loadFile(current_map_index_);
-    player_ = player(0, 0);
+    player_ = player(1, 1);
     grid_->setCell(player_.getX(), player_.getY(), PLAYER_CELL);
 }
 

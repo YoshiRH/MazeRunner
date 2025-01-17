@@ -31,7 +31,7 @@ public:
     explicit game(const std::vector<std::string> &map_files);
 
     void loadFile(int index); // Load specific map by index
-    GET_FROM_INPUT getInput(); // Get input from user
+    static GET_FROM_INPUT getInput(); // Get input from user
 
     void runGame();
     void newGame();
@@ -45,7 +45,7 @@ public:
     void showPauseMenu();
     void showMainMenu();
     void showGameOverMenu();
-    void showControls();
+    static void showControls();
 
     void movePlayer(GET_FROM_INPUT dir); // Function to check if player can move in specific direction and moving him
     void showGameInfo() const;
