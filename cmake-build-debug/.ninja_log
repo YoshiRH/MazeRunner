@@ -1,12 +1,13 @@
 # ninja log v5
-51	716	7588444625634448	CMakeFiles/MazeRunner.dir/src/statistic/statistic.cpp.obj	1686a0890044b999
-15	933	7588444627821350	CMakeFiles/MazeRunner.dir/src/Items/food/food.cpp.obj	5aa2560f2f36089c
-19	939	7588444627906602	CMakeFiles/MazeRunner.dir/src/Items/health_potion/health_potion.cpp.obj	5af330de342c0f01
 46	963	7588444628148395	CMakeFiles/MazeRunner.dir/src/player/player.cpp.obj	6677f8f1f41ac11e
+51	716	7588444625634448	CMakeFiles/MazeRunner.dir/src/statistic/statistic.cpp.obj	1686a0890044b999
+19	939	7588444627906602	CMakeFiles/MazeRunner.dir/src/Items/health_potion/health_potion.cpp.obj	5af330de342c0f01
+15	933	7588444627821350	CMakeFiles/MazeRunner.dir/src/Items/food/food.cpp.obj	5aa2560f2f36089c
+41	1307	7588444631583566	CMakeFiles/MazeRunner.dir/src/map/map.cpp.obj	1b8cf3163487548e
 28	1194	7588444630460868	CMakeFiles/MazeRunner.dir/src/inventory/inventory.cpp.obj	37b93a4426383c3c
 1	1255	7588444631076843	CMakeFiles/MazeRunner.dir/app/main.cpp.obj	a0e1776369b7ae38
 24	1257	7588444631086833	CMakeFiles/MazeRunner.dir/src/grid/grid.cpp.obj	b95a0f0d9eab58e5
-41	1307	7588444631583566	CMakeFiles/MazeRunner.dir/src/map/map.cpp.obj	1b8cf3163487548e
 36	1486	7588444633377089	CMakeFiles/MazeRunner.dir/src/map_file_manager/map_file_manager.cpp.obj	6d033d29680adb08
 32	1518	7588444633698768	CMakeFiles/MazeRunner.dir/src/game/game.cpp.obj	dbee3c65a9954af0
 1518	1691	7588444635376742	MazeRunner.exe	aa1bcc13ca06a548
+0	156	7588475224026583	build.ninja	9dd67590a6c8f335
