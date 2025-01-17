@@ -4,19 +4,19 @@ MazeRunner is a console-based game, where player has to find an exit before his 
 
 ## Description
 
-MazeRunner is a console game inspired by old escape type games. The player navigates through the maps which are created by .txt files by following rules:
-. - Empty cell on which player can move
-# - Obstacle cell, represent a wall
-> - Gate, navigate to the next level
-H - Represent Health Potion, which player can pick up and use whenever he want's to
-F - Same as "H" but this one represent Food in game
+MazeRunner is a console game inspired by old escape type games. The player navigates through the maps which are created by .txt files by following rules:  
+[.] - Empty cell on which player can move  
+[#] - Obstacle cell, represent a wall  
+[>] - Gate, navigate to the next level  
+[H] - Represent Health Potion, which player can pick up and use whenever he want's to  
+[F] - Same as "H" but this one represent Food in game
 
 ## Controls 
 
-Arrows - Use arrows to move around
-X - Show pause menu
-1 - Use Health Potion
-2 - Eat Food
+[Arrows] - Use arrows to move around  
+[X] - Show pause menu  
+[1] - Use Health Potion  
+[2] - Eat Food
 
 ## Features
 
@@ -26,10 +26,10 @@ X - Show pause menu
 
 ## Project structure
 
-app/ – contains the main.cpp file that launches the game
-src/ – contains the game source files
-maps/ – contains the map files used in the game
-CMakeLists.txt – the CMake configuration file
+- app/ – contains the main.cpp file that launches the game
+- src/ – contains the game source files
+- maps/ – contains the map files used in the game
+- CMakeLists.txt – the CMake configuration file
 
 ## System Requirements
 
